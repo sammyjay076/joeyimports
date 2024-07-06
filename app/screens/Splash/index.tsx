@@ -8,7 +8,7 @@ import {
   FlatList,
   Image,
 } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamsList } from "../../types/navigation.d";
 import pictures from "../../pictures";
@@ -16,43 +16,20 @@ import pictures from "../../pictures";
 type Props = {};
 
 const Splash: React.FC = (props: Props) => {
-  const data = [
-    {
-      title: "Chester Chair",
-      image: pictures.brownChair,
-      price: "$10",
-    },
-    {
-      title: "Leset Galant",
-      image: pictures.leset,
-      price: "$15",
-    },
-    {
-      title: "Soft Element Jack",
-      image: pictures.armChair,
-      price: "$20",
-    },
-    {
-      title: "Avrora Chair",
-      image: pictures.redChair,
-      price: "$25",
-    },
-    {
-      title: "Item 5",
-      image: pictures.redChair,
-      price: "$30",
-    },
-    {
-      title: "Item 6",
-      image: pictures.redChair,
-      price: "$35",
-    },
-    {
-      title: "Item 7",
-      image: pictures.redChair,
-      price: "$40",
-    },
-  ];
+  const URL =
+    "https://api.timbu.cloud/products?Apikey=56fd56382cbf4024a11fa0fc1805cb8420240706153121891578&organization_id=59a31b9f81fc43a69e0fbd5bc5bb34f7&Appid=PMVZRV2JLO8LDFY";
+
+  // const URL = `https://api.timbu.cloud/products?Apikey=${process.env.Apikey}&organization_id=${process.env.organization_id}&Appid=${process.env.Appid}`;
+
+  const [productData, setProductData] = useState([]);
+
+  async function fetchData() {
+    const response = await fetch(URL);
+    const data = await response.json();
+    // console.log("what data", data?.items[0]?.photos[0]?.url);
+    setProductData(data?.items);
+    return data;
+  }
 
   const navigation = useNavigation<RootStackParamsList>();
   const slideUpAnimation = useRef(new Animated.Value(0)).current;
@@ -88,7 +65,8 @@ const Splash: React.FC = (props: Props) => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate("BottomTabs");
+            // navigation.navigate("BottomTabs");
+            fetchData();
           }}
         >
           <Text style={styles.buttonText}>Go to catalogue</Text>
@@ -110,6 +88,9 @@ const Splash: React.FC = (props: Props) => {
             Popular categories
           </Text>
           <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("BottomTabs");
+            }}
             style={{
               borderBottomColor: "#0D0D0E",
               borderBottomWidth: 1,
@@ -133,16 +114,24 @@ const Splash: React.FC = (props: Props) => {
           }}
         >
           <FlatList
-            data={data}
-            keyExtractor={(item) => item.title}
+            data={productData}
+            keyExtractor={(item) => item.id}
             horizontal
-            // space between items
+            showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ gap: 30 }}
             renderItem={({ item }) => (
               <View style={{ gap: 10 }}>
                 <Image
-                  source={item.image}
-                  style={{ width: 200, height: 200, gap: 10 }}
+                  source={{
+                    uri: `https://api.timbu.cloud/images/${item?.photos[0]?.url}`,
+                  }}
+                  style={{
+                    width: 200,
+                    height: 200,
+                    backgroundColor: "grey",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
                 />
                 <View
                   style={{
@@ -156,7 +145,7 @@ const Splash: React.FC = (props: Props) => {
                       fontWeight: "bold",
                     }}
                   >
-                    {item.title}
+                    {item?.name}
                   </Text>
                   <Text
                     style={{
@@ -164,7 +153,7 @@ const Splash: React.FC = (props: Props) => {
                       color: "grey",
                     }}
                   >
-                    {item.price}
+                    ${item?.current_price[0]?.GHS[0]}
                   </Text>
                 </View>
               </View>
