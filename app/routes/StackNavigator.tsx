@@ -12,7 +12,9 @@ const StackNavigator = (props: Props) => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        // screenOptions={{}}
+        screenOptions={{
+          headerShown: false,
+        }}
         initialRouteName="Splash"
       >
         <Stack.Screen name="Splash" component={Splash} />
