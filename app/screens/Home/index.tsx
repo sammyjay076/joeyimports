@@ -1,77 +1,68 @@
-import { StyleSheet, Text, View, FlatList, Image } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import React, { useLayoutEffect } from "react";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import pictures from "../../pictures";
+import { useNavigation } from "@react-navigation/native";
+import { Header } from "../../components";
+import { RootStackParamsList } from "../../types/navigation.d";
 
 type Props = {};
+interface IHomeProps {
+  productData: any;
+  setProducts: React.Dispatch<React.SetStateAction<[]>>;
+}
 
-const Home: React.FC = (props: Props) => {
-  const data = [
-    {
-      title: "Chester Chair",
-      image: pictures.brownChair,
-      price: "$10",
-    },
-    {
-      title: "Leset Galant",
-      image: pictures.leset,
-      price: "$15",
-    },
-    {
-      title: "Soft Element Jack",
-      image: pictures.armChair,
-      price: "$20",
-    },
-    {
-      title: "Avrora Chair",
-      image: pictures.redChair,
-      price: "$25",
-    },
-    {
-      title: "Item 5",
-      image: pictures.redChair,
-      price: "$30",
-    },
-    {
-      title: "Item 6",
-      image: pictures.redChair,
-      price: "$35",
-    },
-    {
-      title: "Item 7",
-      image: pictures.redChair,
-      price: "$40",
-    },
-  ];
+const Home: React.FC<IHomeProps> = ({ productData, setProducts }) => {
+  const navigation = useNavigation<RootStackParamsList>();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      header: () => <Header title="Home" type="home" />,
+    });
+  });
+
+  const imageUrl = "https://api.timbu.cloud/images/";
 
   return (
-    <View style={{ flex: 1, padding: 10 }}>
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <FeatherIcon name="menu" size={30} color="black" />
-        <AntIcon name="user" size={30} color="black" />
-      </View>
-      <View>
-        <Text>Discover products</Text>
-      </View>
-
+    <View style={{ flex: 1, padding: 10, backgroundColor: "#fff" }}>
       <View style={{}}>
         <FlatList
+          showsVerticalScrollIndicator={false}
           numColumns={2}
-          data={data}
+          data={productData.reverse()}
           renderItem={({ item }) => (
-            <View
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("ProductDetail", {
+                  productData: item,
+                });
+              }}
               style={{
                 height: 200,
                 width: 200,
                 justifyContent: "center",
                 alignItems: "center",
+                backgroundColor: "#fff",
               }}
             >
-              <Text>{item.title}</Text>
-              <Text>{item.price}</Text>
-              <Image style={{ height: 150, width: 150 }} source={item.image} />
-            </View>
+              <Image
+                style={{ height: 150, width: 150 }}
+                source={{
+                  uri: `${imageUrl}${item?.photos[0]?.url}`,
+                }}
+              />
+              <Text>{item.name}</Text>
+              <Text>${item?.current_price[0]?.GHS[0]}</Text>
+            </TouchableOpacity>
           )}
         />
       </View>

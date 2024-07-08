@@ -8,29 +8,19 @@ import {
   FlatList,
   Image,
 } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, SetStateAction } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamsList } from "../../types/navigation.d";
 import pictures from "../../pictures";
 
 type Props = {};
 
-const Splash: React.FC = (props: Props) => {
-  const URL =
-    "https://api.timbu.cloud/products?Apikey=56fd56382cbf4024a11fa0fc1805cb8420240706153121891578&organization_id=59a31b9f81fc43a69e0fbd5bc5bb34f7&Appid=PMVZRV2JLO8LDFY";
+interface ISplashProps {
+  productData: any;
+  setProducts: React.Dispatch<SetStateAction<[]>>;
+}
 
-  // const URL = `https://api.timbu.cloud/products?Apikey=${process.env.Apikey}&organization_id=${process.env.organization_id}&Appid=${process.env.Appid}`;
-
-  const [productData, setProductData] = useState([]);
-
-  async function fetchData() {
-    const response = await fetch(URL);
-    const data = await response.json();
-    // console.log("what data", data?.items[0]?.photos[0]?.url);
-    setProductData(data?.items);
-    return data;
-  }
-
+const Splash: React.FC<ISplashProps> = ({ productData, setProducts }) => {
   const navigation = useNavigation<RootStackParamsList>();
   const slideUpAnimation = useRef(new Animated.Value(0)).current;
 
@@ -53,6 +43,8 @@ const Splash: React.FC = (props: Props) => {
     ],
   };
 
+  const imageUrl = "https://api.timbu.cloud/images/";
+
   return (
     <ImageBackground
       source={require("../../../assets/interior.jpg")}
@@ -65,8 +57,8 @@ const Splash: React.FC = (props: Props) => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            // navigation.navigate("BottomTabs");
-            fetchData();
+            navigation.navigate("BottomTabs");
+            // fetchData();
           }}
         >
           <Text style={styles.buttonText}>Go to catalogue</Text>
@@ -110,11 +102,11 @@ const Splash: React.FC = (props: Props) => {
           style={{
             alignItems: "center",
             justifyContent: "center",
-            paddingTop: 40,
+            paddingTop: 20,
           }}
         >
           <FlatList
-            data={productData}
+            data={productData.reverse()}
             keyExtractor={(item) => item.id}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -123,12 +115,13 @@ const Splash: React.FC = (props: Props) => {
               <View style={{ gap: 10 }}>
                 <Image
                   source={{
-                    uri: `https://api.timbu.cloud/images/${item?.photos[0]?.url}`,
+                    uri: `${imageUrl}${item?.photos[0]?.url}`,
                   }}
                   style={{
-                    width: 200,
-                    height: 200,
-                    backgroundColor: "grey",
+                    width: 150,
+                    height: 150,
+                    // backgroundColor if image is not available
+                    // backgroundColor: "grey",
                     alignItems: "center",
                     justifyContent: "center",
                   }}
@@ -167,7 +160,7 @@ const Splash: React.FC = (props: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: "50%",
+    height: "60%",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "rgba(0,0,0,0.1)",
