@@ -1,10 +1,18 @@
-import { StyleSheet, Text, View, FlatList, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import React, { useLayoutEffect } from "react";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import pictures from "../../pictures";
 import { useNavigation } from "@react-navigation/native";
 import { Header } from "../../components";
+import { RootStackParamsList } from "../../types/navigation.d";
 
 type Props = {};
 interface IHomeProps {
@@ -13,19 +21,12 @@ interface IHomeProps {
 }
 
 const Home: React.FC<IHomeProps> = ({ productData, setProducts }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<RootStackParamsList>();
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
-      header: () => (
-        <Header
-          title="Home"
-          onPressSearch={() => {
-            navigation.navigate("Search");
-          }}
-        />
-      ),
+      header: () => <Header title="Home" type="home" />,
     });
   });
 
@@ -33,21 +34,18 @@ const Home: React.FC<IHomeProps> = ({ productData, setProducts }) => {
 
   return (
     <View style={{ flex: 1, padding: 10, backgroundColor: "#fff" }}>
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <FeatherIcon name="menu" size={30} color="black" />
-        <AntIcon name="user" size={30} color="black" />
-      </View>
-      <View>
-        <Text>Discover products</Text>
-      </View>
-
       <View style={{}}>
         <FlatList
           showsVerticalScrollIndicator={false}
           numColumns={2}
           data={productData}
           renderItem={({ item }) => (
-            <View
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("ProductDetail", {
+                  productData: item,
+                });
+              }}
               style={{
                 height: 200,
                 width: 200,
@@ -64,7 +62,7 @@ const Home: React.FC<IHomeProps> = ({ productData, setProducts }) => {
               />
               <Text>{item.name}</Text>
               <Text>${item?.current_price[0]?.GHS[0]}</Text>
-            </View>
+            </TouchableOpacity>
           )}
         />
       </View>

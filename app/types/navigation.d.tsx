@@ -9,4 +9,6 @@ export type RootStackParamsList = {
   Home: String | undefined;
   Splash: String | undefined;
   BottomTabs: String | undefined;
+  ProductDetail: String | undefined;
+  setOptions: any;
 };

@@ -118,8 +118,8 @@ const Splash: React.FC<ISplashProps> = ({ productData, setProducts }) => {
                     uri: `${imageUrl}${item?.photos[0]?.url}`,
                   }}
                   style={{
-                    width: 200,
-                    height: 200,
+                    width: 150,
+                    height: 150,
                     // backgroundColor if image is not available
                     // backgroundColor: "grey",
                     alignItems: "center",

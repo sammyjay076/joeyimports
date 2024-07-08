@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Home } from "../screens";
+import { Home, Profile } from "../screens";
 import Icon from "react-native-vector-icons/AntDesign";
 
 const Tab = createBottomTabNavigator();
@@ -31,6 +31,16 @@ const BottomTabs: React.FC<IBottomTabsProps> = ({
           />
         )}
       </Tab.Screen>
+      <Tab.Screen
+        options={{
+          tabBarLabel: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="user" color={color} size={size} />
+          ),
+        }}
+        name="Profile"
+        component={Profile}
+      />
       {/* <Tab.Screen name="Settings" component={SettingsScreen} /> */}
     </Tab.Navigator>
   );

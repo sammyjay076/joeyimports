@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { Home, Splash } from "../screens";
+import { Home, ProductDetails, Splash } from "../screens";
 import BottomTabs from "./BottomTabs";
 
 type Props = {};
@@ -34,6 +34,8 @@ const StackNavigator: React.FC<INavigationProps> = ({
             />
           )}
         </Stack.Screen>
+        <Stack.Screen name="ProductDetail" component={ProductDetails} />
+
         <Stack.Screen name="BottomTabs">
           {(props) => (
             <BottomTabs

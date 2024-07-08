@@ -6,27 +6,28 @@ import { useNavigation } from "@react-navigation/native";
 
 interface IHeaderProps {
   title: string;
-  onPressSearch: () => void;
+  type?: string;
 }
 
-const Header: React.FC<IHeaderProps> = ({ title, onPressSearch }) => {
+const Header: React.FC<IHeaderProps> = ({ title, type }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.header}>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.goBack();
-        }}
-        style={styles.left}
-      >
-        <MaterialIcon name="arrow-back" size={30} color="#fff" />
-      </TouchableOpacity>
+      {type === "home" ? (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+          style={styles.left}
+        >
+          <MaterialIcon name="arrow-back" size={30} color="#fff" />
+        </TouchableOpacity>
+      ) : (
+        <></>
+      )}
       <View style={styles.middle}>
         <Text style={styles.headerName}>{title}</Text>
       </View>
-      <TouchableOpacity style={styles.right}>
-        <AntIcon name="search1" size={30} color="#fff" />
-      </TouchableOpacity>
     </View>
   );
 };
