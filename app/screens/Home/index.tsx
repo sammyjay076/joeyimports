@@ -38,7 +38,7 @@ const Home: React.FC<IHomeProps> = ({ productData, setProducts }) => {
         <FlatList
           showsVerticalScrollIndicator={false}
           numColumns={2}
-          data={productData}
+          data={productData.reverse()}
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() => {

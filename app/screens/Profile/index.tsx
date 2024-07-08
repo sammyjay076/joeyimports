@@ -18,6 +18,13 @@ const ProfileScreen = () => {
       <Image source={pictures.user} style={styles.profileImage} />
       <Text style={styles.fullName}>Samuel Khobby</Text>
       <Text style={styles.username}>@khobbysam</Text>
+
+      <View style={{ alignItems: "center", marginTop: 12 }}>
+        <Text style={{ ...styles.fullName, fontSize: 18 }}>
+          Slack ID: Samuel Boakye Yiadom
+        </Text>
+        <Text style={styles.username}>Gmail: boakyesamuel976@gmail.com</Text>
+      </View>
     </View>
   );
 };
@@ -29,8 +36,8 @@ const styles = StyleSheet.create({
     // justifyContent: "center",
   },
   profileImage: {
-    width: 300,
-    height: 300,
+    width: 400,
+    height: 400,
     borderRadius: 75,
     marginBottom: 20,
   },

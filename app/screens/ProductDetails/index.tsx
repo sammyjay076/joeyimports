@@ -27,19 +27,47 @@ const ProductDetails = () => {
   // }}
   return (
     <View style={styles.container}>
-      <Image
-        source={
-          productImage
-            ? { uri: `${imageUrl}${productImage}` }
-            : pictures.armChair
-        }
-        style={styles.image}
-        resizeMode="cover"
-      />
-      <Text style={styles.title}>{productName}</Text>
-      <Text style={styles.description}>{productDescription}</Text>
+      <View
+        style={{
+          width: "100%",
+          borderBottomLeftRadius: 32,
+          borderBottomRightRadius: 32,
+          overflow: "hidden",
+          backgroundColor: "#ffffff81",
+        }}
+      >
+        <Image
+          source={
+            productImage
+              ? { uri: `${imageUrl}${productImage}` }
+              : pictures.armChair
+          }
+          style={styles.image}
+          resizeMode="cover"
+        />
+      </View>
+      <View
+        style={{
+          padding: 16,
+          // backgroundColor: "#ffffff81",
+        }}
+      >
+        <Text style={styles.title}>{productName}</Text>
+        <Text style={styles.description}>{productDescription}</Text>
 
-      <Text style={styles.price}>${productPrice}</Text>
+        <View
+          style={{
+            backgroundColor: "#72e9e581",
+            borderRadius: 8,
+            width: 100,
+            alignItems: "center",
+            justifyContent: "center",
+            height: 50,
+          }}
+        >
+          <Text style={styles.price}>${productPrice}</Text>
+        </View>
+      </View>
     </View>
   );
 };
@@ -47,7 +75,8 @@ const ProductDetails = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    // padding: 16,
+    backgroundColor: "#bcb3b381",
   },
   image: {
     width: "100%",
@@ -61,7 +90,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 20,
     fontWeight: "medium",
-    marginTop: 16,
+    textAlign: "center",
   },
   description: {
     fontSize: 16,

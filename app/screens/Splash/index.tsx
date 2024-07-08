@@ -102,11 +102,11 @@ const Splash: React.FC<ISplashProps> = ({ productData, setProducts }) => {
           style={{
             alignItems: "center",
             justifyContent: "center",
-            // paddingTop: 40,
+            paddingTop: 20,
           }}
         >
           <FlatList
-            data={productData}
+            data={productData.reverse()}
             keyExtractor={(item) => item.id}
             horizontal
             showsHorizontalScrollIndicator={false}
