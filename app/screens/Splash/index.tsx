@@ -102,7 +102,7 @@ const Splash: React.FC<ISplashProps> = ({ productData, setProducts }) => {
           style={{
             alignItems: "center",
             justifyContent: "center",
-            paddingTop: 40,
+            // paddingTop: 40,
           }}
         >
           <FlatList
@@ -120,7 +120,8 @@ const Splash: React.FC<ISplashProps> = ({ productData, setProducts }) => {
                   style={{
                     width: 200,
                     height: 200,
-                    backgroundColor: "grey",
+                    // backgroundColor if image is not available
+                    // backgroundColor: "grey",
                     alignItems: "center",
                     justifyContent: "center",
                   }}
@@ -159,7 +160,7 @@ const Splash: React.FC<ISplashProps> = ({ productData, setProducts }) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: "50%",
+    height: "60%",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "rgba(0,0,0,0.1)",

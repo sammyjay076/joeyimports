@@ -32,7 +32,7 @@ const Home: React.FC<IHomeProps> = ({ productData, setProducts }) => {
   const imageUrl = "https://api.timbu.cloud/images/";
 
   return (
-    <View style={{ flex: 1, padding: 10 }}>
+    <View style={{ flex: 1, padding: 10, backgroundColor: "#fff" }}>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <FeatherIcon name="menu" size={30} color="black" />
         <AntIcon name="user" size={30} color="black" />
@@ -43,6 +43,7 @@ const Home: React.FC<IHomeProps> = ({ productData, setProducts }) => {
 
       <View style={{}}>
         <FlatList
+          showsVerticalScrollIndicator={false}
           numColumns={2}
           data={productData}
           renderItem={({ item }) => (
@@ -52,6 +53,7 @@ const Home: React.FC<IHomeProps> = ({ productData, setProducts }) => {
                 width: 200,
                 justifyContent: "center",
                 alignItems: "center",
+                backgroundColor: "#fff",
               }}
             >
               <Image
