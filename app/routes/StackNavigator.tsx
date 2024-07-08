@@ -7,8 +7,16 @@ import BottomTabs from "./BottomTabs";
 
 type Props = {};
 
+interface INavigationProps {
+  productData: any;
+  setProducts: React.Dispatch<React.SetStateAction<[]>>;
+}
+
 const Stack = createNativeStackNavigator();
-const StackNavigator = (props: Props) => {
+const StackNavigator: React.FC<INavigationProps> = ({
+  productData,
+  setProducts,
+}) => {
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -17,8 +25,24 @@ const StackNavigator = (props: Props) => {
         }}
         initialRouteName="Splash"
       >
-        <Stack.Screen name="Splash" component={Splash} />
-        <Stack.Screen name="BottomTabs" component={BottomTabs} />
+        <Stack.Screen name="Splash">
+          {(props) => (
+            <Splash
+              productData={productData}
+              setProducts={setProducts}
+              {...props}
+            />
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="BottomTabs">
+          {(props) => (
+            <BottomTabs
+              productData={productData}
+              setProducts={setProducts}
+              {...props}
+            />
+          )}
+        </Stack.Screen>
         {/* <Stack.Screen name="Home" component={Home} /> */}
       </Stack.Navigator>
     </NavigationContainer>

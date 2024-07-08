@@ -3,8 +3,15 @@ import { Home } from "../screens";
 import Icon from "react-native-vector-icons/AntDesign";
 
 const Tab = createBottomTabNavigator();
+interface IBottomTabsProps {
+  productData: any;
+  setProducts: React.Dispatch<React.SetStateAction<[]>>;
+}
 
-const BottomTabs = () => {
+const BottomTabs: React.FC<IBottomTabsProps> = ({
+  productData,
+  setProducts,
+}) => {
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -15,8 +22,15 @@ const BottomTabs = () => {
           ),
         }}
         name="Home"
-        component={Home}
-      />
+      >
+        {(props) => (
+          <Home
+            productData={productData}
+            setProducts={setProducts}
+            {...props}
+          />
+        )}
+      </Tab.Screen>
       {/* <Tab.Screen name="Settings" component={SettingsScreen} /> */}
     </Tab.Navigator>
   );
