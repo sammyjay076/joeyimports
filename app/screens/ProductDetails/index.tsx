@@ -57,12 +57,13 @@ const ProductDetails = () => {
 
         <View
           style={{
-            backgroundColor: "#72e9e581",
+            backgroundColor: "#a2cfcd81",
             borderRadius: 8,
             width: 100,
             alignItems: "center",
             justifyContent: "center",
             height: 50,
+            alignSelf: "flex-end",
           }}
         >
           <Text style={styles.price}>${productPrice}</Text>

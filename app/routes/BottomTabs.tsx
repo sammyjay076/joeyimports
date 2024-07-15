@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Home, Profile } from "../screens";
+import { Catalogue, Home, Profile } from "../screens";
 import Icon from "react-native-vector-icons/AntDesign";
 
 const Tab = createBottomTabNavigator();
@@ -31,6 +31,24 @@ const BottomTabs: React.FC<IBottomTabsProps> = ({
           />
         )}
       </Tab.Screen>
+      {/* <Tab.Screen
+        options={{
+          tabBarLabel: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="home" color={color} size={size} />
+          ),
+        }}
+        name="Home"
+      >
+        {(props) => (
+          // <Home
+          //   productData={productData}
+          //   setProducts={setProducts}
+          //   {...props}
+          // />
+          <Catalogue />
+        )}
+      </Tab.Screen> */}
       <Tab.Screen
         options={{
           tabBarLabel: "Home",
